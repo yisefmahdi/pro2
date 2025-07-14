@@ -850,10 +850,10 @@ def remove_duplicates_and_merge(tfidf_text, semantic_text):
 #embedding_model = SentenceTransformer("LABSE")
 
 
-#embedding_model = SentenceTransformer("intfloat/e5-mistral-7b-instruct")
+embedding_model = SentenceTransformer("minishlab/potion-base-8M")
 
 
-embedding_model = SentenceTransformer("sentence-transformers/static-similarity-mrl-multilingual-v1")
+#embedding_model = SentenceTransformer("sentence-transformers/static-similarity-mrl-multilingual-v1")
 
 
 def retrieve_relevant_text(question, book_content, word_limit, min_words=50, top_k=10, similarity_threshold=0.9):
