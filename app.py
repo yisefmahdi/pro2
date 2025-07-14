@@ -856,7 +856,7 @@ def remove_duplicates_and_merge(tfidf_text, semantic_text):
 embedding_model = SentenceTransformer("sentence-transformers/static-similarity-mrl-multilingual-v1")
 
 
-def retrieve_relevant_text(question, book_content, word_limit, min_words=50, top_k=20, similarity_threshold=0.9):
+def retrieve_relevant_text(question, book_content, word_limit, min_words=50, top_k=10, similarity_threshold=0.9):
     total_words_in_book = len(book_content.split())
     print("📏 عدد كلمات الكتاب:", total_words_in_book)
     print("🎯 الحد المطلوب:", word_limit)
@@ -882,7 +882,7 @@ def retrieve_relevant_text(question, book_content, word_limit, min_words=50, top
         return chunks
 
     def build_faiss_index(chunks):
-        embeddings = embedding_model.encode(chunks, batch_size=1024, convert_to_numpy=True, normalize_embeddings=True)
+        embeddings = embedding_model.encode(chunks, batch_size=48, convert_to_numpy=True, normalize_embeddings=True)
         index = faiss.IndexFlatIP(embeddings.shape[1])
         index.add(embeddings)
         return index, embeddings, chunks
@@ -936,7 +936,7 @@ def retrieve_relevant_text(question, book_content, word_limit, min_words=50, top
         return ""
 
     relevant_chunks = filter_similar_chunks(relevant_chunks)
-    return merge_chunks(relevant_chunks, max_chunks=20)
+    return merge_chunks(relevant_chunks, max_chunks=10)
 
 
 
